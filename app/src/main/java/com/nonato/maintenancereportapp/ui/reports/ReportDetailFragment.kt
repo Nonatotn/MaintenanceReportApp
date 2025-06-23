@@ -1,9 +1,35 @@
-package ui.reports
+package com.nonato.maintenancereportapp.ui.reports
+
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.provider.MediaStore
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.nonato.maintenancereportapp.utils.PdfUtil
+import com.nonato.maintenancereportapp.data.AppDatabase
+import com.nonato.maintenancereportapp.data.model.Report
+import com.nonato.maintenancereportapp.data.model.ReportItem
+import com.nonato.maintenancereportapp.viewmodel.ReportDetailViewModel
+import kotlinx.coroutines.launch
+import androidx.recyclerview.widget.LinearLayoutManager
+import java.io.File
 
 class ReportDetailFragment : Fragment() {
     private lateinit var binding: FragmentReportDetailBinding
     private lateinit var viewModel: ReportDetailViewModel
     private var reportId: Long = 0
+    private val args: ReportDetailFragmentArgs by navArgs()
 
     // Adaptação para múltiplos tipos de item (texto/imagem)
     private lateinit var adapter: ReportItemAdapter
@@ -68,7 +94,7 @@ class ReportDetailFragment : Fragment() {
                         }
                         tempImageUri = requireContext().contentResolver.insert(
                             MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-                        cameraLauncher.launch(tempImageUri)
+                        tempImageUri?.let { cameraLauncher.launch(it) }
                     } else {
                         // Seleciona da galeria
                         galleryLauncher.launch("image/*")

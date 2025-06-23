@@ -1,13 +1,11 @@
-
-
-package com.example.maintenancereportapp.viewmodel
+package com.nonato.maintenancereportapp.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.maintenancereportapp.data.AppDatabase
-import com.example.maintenancereportapp.data.model.Report
+import com.nonato.maintenancereportapp.data.AppDatabase
+import com.nonato.maintenancereportapp.data.model.Report
 import kotlinx.coroutines.launch
 
 class ReportsViewModel(application: Application) : AndroidViewModel(application) {

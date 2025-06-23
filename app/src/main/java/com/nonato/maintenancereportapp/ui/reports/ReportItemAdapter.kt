@@ -1,4 +1,17 @@
-package ui.reports
+package com.nonato.maintenancereportapp.ui.reports
+
+import android.net.Uri
+import android.provider.MediaStore
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.nonato.maintenancereportapp.R
+import com.nonato.maintenancereportapp.data.model.ReportItem
 
 class ReportItemAdapter : ListAdapter<ReportItem, RecyclerView.ViewHolder>(DiffCallback()) {
 

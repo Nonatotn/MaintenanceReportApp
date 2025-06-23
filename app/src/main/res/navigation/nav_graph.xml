@@ -1,76 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph.xml"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/reportListFragment">
 
-            app:startDestination="@id/reportListFragment">
-
+    <!-- 1) Fragment de lista de relatórios -->
     <fragment
         android:id="@+id/reportListFragment"
-        android:name="com.example.maintenancereportapp.ui.reports.ReportListFragment"
+        android:name="com.nonato.maintenancereportapp.ui.reports.ReportListFragment"
         android:label="Lista de Relatórios">
-        <!-- ações saindo daqui -->
+
+        <!-- Ação que, ao clicar num relatório, leva ao detalhe -->
         <action
             android:id="@+id/action_reportList_to_reportDetail"
-            app:destination="@id/reportDetailFragment"
-            app:enterAnim="@anim/enter_anim"
-            app:exitAnim="@anim/exit_anim"
-        >
-        <!-- Se passar argumentos, configure aqui -->
-        <argument
-            android:name="reportId"
-            app:argType="long"
-            android:defaultValue="0L" />
-        <action
-            android:id="@+id/action_reportListFragment_to_reportDetailFragment2"
-            app:destination="@id/reportDetailFragment2" />
-        <action
-            android:id="@+id/action_reportListFragment_to_settingsFragment2"
-            app:destination="@id/settingsFragment2" />
-    </action>
-    <action
-        android:id="@+id/action_reportList_to_settings"
-        app:destination="@id/settingsFragment" />
-    <fragment
-        android:id="@+id/settingsFragment2"
-        android:name="com.nonato.maintenancereportapp.SettingsFragment"
-        android:label="SettingsFragment" >
-        <argument
-            android:name="reportId"
-            app:argType="long"
-            android:defaultValue="0L" />
-    </fragment>
-    <fragment
-        android:id="@+id/reportDetailFragment2"
-        android:name="com.nonato.maintenancereportapp.ReportDetailFragment"
-        android:label="fragment_report_detail2"
-        tools:layout="@layout/fragment_report_detail2" >
-        <argument
-            android:name="reportId"
-            app:argType="long"
-            android:defaultValue="0L" />
-    </fragment>
-</fragment>
+            app:destination="@id/reportDetailFragment">
 
-<fragment
-android:id="@+id/reportDetailFragment"
-android:name="com.example.maintenancereportapp.ui.reports.ReportDetailFragment"
-android:label="Detalhe de Relatório">
-<!-- Definir argumento reportId para este fragment -->
-<argument
-    android:name="reportId"
-    app:argType="long"
-    android:defaultValue="0L" />
-<!-- Se quiser ação de volta ou outras ações, também pode definir aqui -->
-</fragment>
+            <!-- Definição do argumento que será enviado: reportId (tipo long) -->
+            <argument
+                android:name="reportId"
+                app:argType="long" />
+        </action>
 
-<fragment
-android:id="@+id/settingsFragment"
-android:name="com.example.maintenancereportapp.ui.settings.SettingsFragment"
-android:label="Configurações" >
-<!-- Ações de retorno geralmente não precisam ser declaradas, pois o Navigation trata popBackStack -->
-</fragment>
+    </fragment>
+
+    <!-- 2) Fragment de detalhe de relatório -->
+    <fragment
+        android:id="@+id/reportDetailFragment"
+        android:name="com.nonato.maintenancereportapp.ui.reports.ReportDetailFragment"
+        android:label="Detalhe de Relatório">
+        <!-- Não precisa colocar <argument> aqui porque já o definimos na action -->
+    </fragment>
 
 </navigation>

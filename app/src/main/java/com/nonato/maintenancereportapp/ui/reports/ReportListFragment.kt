@@ -1,4 +1,13 @@
-package ui.reports
+package com.nonato.maintenancereportapp.ui.reports
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.nonato.maintenancereportapp.viewmodel.ReportsViewModel
 
 class ReportListFragment : Fragment() {
     private lateinit var binding: FragmentReportListBinding
@@ -30,35 +39,19 @@ class ReportListFragment : Fragment() {
             val action = ReportListFragmentDirections.actionReportListToReportDetail(0L)
             findNavController().navigate(action)
         }
-    }
-}
 
-class ReportListAdapter(private val onClick: (Report) -> Unit) :
-    ListAdapter<Report, ReportListAdapter.ReportViewHolder>(DiffCallback()) {
+        binding.recyclerView.adapter = adapter.apply {
+            onItemClick = { report ->
+                // Cria a ação tipada gerada pelo Safe Args:
+                val action = ReportListFragmentDirections
+                    .actionReportListToReportDetail(report.id)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReportViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_report, parent, false)
-        return ReportViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: ReportViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
-
-    inner class ReportViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val titleTv: TextView = itemView.findViewById(R.id.tvReportTitle)
-        private val clientTv: TextView = itemView.findViewById(R.id.tvReportClient)
-        fun bind(report: Report) {
-            titleTv.text = report.title
-            clientTv.text = "Cliente: ${report.client}"
-            itemView.setOnClickListener { onClick(report) }
+                // Executa a navegação
+                findNavController().navigate(action)
+            }
         }
-    }
 
-    class DiffCallback : DiffUtil.ItemCallback<Report>() {
-        override fun areItemsTheSame(old: Report, new: Report) = old.id == new.id
-        override fun areContentsTheSame(old: Report, new: Report) = old == new
     }
 }
+
 
